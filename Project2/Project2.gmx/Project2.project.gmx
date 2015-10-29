@@ -11,6 +11,9 @@
     <sprite>sprites\spr_solid</sprite>
     <sprite>sprites\spr_Meemo_stand_L</sprite>
     <sprite>sprites\spr_Meemo_stand_R</sprite>
+    <sprite>sprites\spr_Meemo_att_L</sprite>
+    <sprite>sprites\spr_Meemo_att_R</sprite>
+    <sprite>sprites\spr_g17_stand_L</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\Basement_back</background>
@@ -35,6 +38,7 @@
   <objects name="objects">
     <object>objects\obj_Meemo</object>
     <object>objects\obj_solid</object>
+    <object>objects\obj_g17</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\Basement</room>

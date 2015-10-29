@@ -37,6 +37,30 @@ globalvar left;
 left = false;
 globalvar moving;
 moving = false;
+attacking = false;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>obj_Meemo.attacking = false;
 </string>
           </argument>
         </arguments>
@@ -59,7 +83,8 @@ moving = false;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>moving = false;
+            <string>if(!attacking) {
+moving = false;
 /**
 if(!place_meeting(x,y-35,obj_solid)) {
     y = y+1;
@@ -125,6 +150,29 @@ if(keyboard_check(vk_left)) {
         sprite_index = spr_Meemo_stand_L;
     }
 }
+
+// Attack
+if(keyboard_check_pressed(vk_lcontrol)) {
+    attacking = true;
+    if(right) {
+        sprite_index = spr_Meemo_att_R;
+    } else {
+        sprite_index = spr_Meemo_att_L;
+    }
+    num[0] = 0;
+    num[1] = 4;
+    num[2] = 9;
+    num[3] = 14;
+    num[4] = 19;
+    num[5] = 24;
+    num[6] = 29;
+    num[7] = 34;
+    i = irandom_range(0, 7);
+    image_index = num[i];
+    image_speed = 1.1;
+    alarm[0] = 13;
+}
+
 if (place_meeting(x+hspd, y, obj_solid)) {
     while (!place_meeting(x+sign(hspd), y-2, obj_solid)) {
         x += sign(hspd);
@@ -141,6 +189,7 @@ if (place_meeting(x, y+vspd, obj_solid)) {
 y+=vspd;
 hspd = 0;
 vspd = 0;
+}
 </string>
           </argument>
         </arguments>
