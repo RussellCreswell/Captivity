@@ -5,7 +5,13 @@
   </Configs>
   <NewExtensions/>
   <sounds name="sound"/>
-  <sprites name="sprites"/>
+  <sprites name="sprites">
+    <sprite>sprites\spr_Meemo_walk_L</sprite>
+    <sprite>sprites\spr_Meemo_walk_R</sprite>
+    <sprite>sprites\spr_solid</sprite>
+    <sprite>sprites\spr_Meemo_stand_L</sprite>
+    <sprite>sprites\spr_Meemo_stand_R</sprite>
+  </sprites>
   <backgrounds name="background">
     <background>background\Basement_back</background>
     <background>background\Armory_back</background>
@@ -26,9 +32,28 @@
     <background>background\Meeting_back</background>
   </backgrounds>
   <paths name="paths"/>
+  <objects name="objects">
+    <object>objects\obj_Meemo</object>
+    <object>objects\obj_solid</object>
+  </objects>
   <rooms name="rooms">
     <room>rooms\Basement</room>
     <room>rooms\Armory</room>
+    <room>rooms\BarberShop</room>
+    <room>rooms\Office</room>
+    <room>rooms\CubRoom</room>
+    <room>rooms\Hallway</room>
+    <room>rooms\Parlor</room>
+    <room>rooms\Spa</room>
+    <room>rooms\Cafe</room>
+    <room>rooms\Gym</room>
+    <room>rooms\Reception</room>
+    <room>rooms\Roof</room>
+    <room>rooms\Server</room>
+    <room>rooms\Breakroom</room>
+    <room>rooms\Library</room>
+    <room>rooms\CEO</room>
+    <room>rooms\Meeting</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>
