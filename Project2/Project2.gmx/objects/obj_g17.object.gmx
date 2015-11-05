@@ -25,11 +25,69 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>health = 100;
+            <string>healt = 100;
 damage = 4;
+spd = 4;
 
-globalvar hit;
+// globalvar hit;
 hit = false;
+// globalvar moving;
+moving = false;
+playerInSight = false;
+withinRange = false;
+// globalvar right;
+// globalvar left;
+right = false;
+left = true;
+attacking = false;
+alive = true;
+canLoseHP = true;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="2">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>self.canLoseHP = true;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="1">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>obj_g17.attacking = false;
 </string>
           </argument>
         </arguments>
@@ -75,14 +133,123 @@ hit = false;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(obj_Meemo.x &gt;= obj_g17.x - 200 &amp;&amp; obj_Meemo.sprite_index == spr_Meemo_att_R) {
-    hit = true;
-    alarm[0] = room_speed * 2;
+            <string>if(!instance_exists(obj_Meemo)) {
+    if(left) {
+        sprite_index = spr_g17_stand_L;
+    }
+    if(right) {
+        sprite_index = spr_g17_stand_R;
+    }
 }
+if(self.healt &lt;= 0) {
+    instance_destroy();
+}
+if(instance_exists(obj_g17) &amp;&amp; instance_exists(obj_Meemo)) {
+if(!hit &amp;&amp; obj_Meemo.x &gt;= obj_g17.x - 90 &amp;&amp; obj_Meemo.x &lt;= obj_g17.x &amp;&amp; obj_Meemo.sprite_index == spr_Meemo_att_R) {
+    hit = true;
+    attacking = false;
+    alarm[0] = 13;
+} else if(!hit &amp;&amp; obj_Meemo.x &lt;= obj_g17.x + 90 &amp;&amp; obj_Meemo.x &gt;= obj_g17.x &amp;&amp; obj_Meemo.sprite_index == spr_Meemo_att_L) {
+    hit = true;
+    attacking = false;
+    alarm[0] = 13;
+}
+
 if(hit) {
-    sprite_index = spr_g17_hit_L;
+    if(canLoseHP) {
+        canLoseHP = false;
+        self.healt -= 20;
+        alarm[2] = 13;
+    }
+    if(left) {
+        sprite_index = spr_g17_hit_L;   
+    }
+    if(right) {
+        sprite_index = spr_g17_hit_R;
+    }
+}
+if(!hit) {
+if((obj_Meemo.x &gt;= (x-50) || obj_Meemo.x &lt;= (x+50)) &amp;&amp; (obj_Meemo.y &gt;= (y-50) || obj_Meemo.y &lt;= (y+50))) {
+    playerInSight = true;
+}
+
+if(playerInSight) {
+    if(obj_Meemo.x &lt; (x-40)) {
+        left = true;
+        right = false;
+        moving = true;
+        x -= spd;
+    } else if(obj_Meemo.x &gt; (x+40)) {
+        left = false;
+        right = true;
+        moving = true;
+        x += spd;
+    }
+    if(obj_Meemo.y &gt; y +2) {
+        moving = true;
+        y += spd;
+    } else if(obj_Meemo.y &lt; y - 2) {
+        moving = true;
+        y -= spd;
+    }
+}
+
+if(moving) {
+    if(left) {
+        sprite_index = spr_g17_walk_L;
+    }
+    if(right) {
+        sprite_index = spr_g17_walk_R;
+    }
+}
+
+if(obj_Meemo.x &gt;= (x-40) &amp;&amp; obj_Meemo.x &lt;= (x+40) &amp;&amp; obj_Meemo.y &gt;= (y - 2) &amp;&amp; obj_Meemo.y &lt;= (y + 2)) {
+    withinRange = true;   
+    moving = false;
 } else {
-    sprite_index = spr_g17_stand_L;
+    withinRange = false;
+}
+
+if(!moving &amp;&amp; !hit &amp;&amp; !attacking) {
+    if(left) {
+        sprite_index = spr_g17_stand_L;   
+    }
+    if(right) {
+        sprite_index = spr_g17_stand_R;
+    }
+}
+if(withinRange &amp;&amp; !moving &amp;&amp; !hit) {
+    attacking = true;
+   /**  num[0] = 0;
+    num[1] = 4;
+    num[2] = 8;
+    num[3] = 12;
+    num[4] = 16;
+    num[5] = 20;
+    num[6] = 24;
+    num[7] = 28;
+    num[8] = 32;
+    num[9] = 36;
+    i = irandom_range(0, 9);
+    image_speed = 0.9;
+    alarm[1] = 60; */
+} else {
+    attacking = false;
+}
+if(attacking) {
+   // image_index = num[i];
+    if(right) {
+        if(self.sprite_index != spr_g17_att_R) {
+            sprite_index = spr_g17_att_R;
+        }
+    }
+    if(left) {
+        if(self.sprite_index != spr_g17_att_L) {
+            sprite_index = spr_g17_att_L;
+        }
+    }
+}
+}
 }
 </string>
           </argument>

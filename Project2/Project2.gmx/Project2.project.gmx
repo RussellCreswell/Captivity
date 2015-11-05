@@ -14,7 +14,13 @@
     <sprite>sprites\spr_Meemo_att_L</sprite>
     <sprite>sprites\spr_Meemo_att_R</sprite>
     <sprite>sprites\spr_g17_stand_L</sprite>
+    <sprite>sprites\spr_g17_stand_R</sprite>
     <sprite>sprites\spr_g17_hit_L</sprite>
+    <sprite>sprites\spr_g17_hit_R</sprite>
+    <sprite>sprites\spr_g17_walk_L</sprite>
+    <sprite>sprites\spr_g17_walk_R</sprite>
+    <sprite>sprites\spr_g17_att_L</sprite>
+    <sprite>sprites\spr_g17_att_R</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\Basement_back</background>

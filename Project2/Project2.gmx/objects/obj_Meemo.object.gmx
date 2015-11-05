@@ -25,19 +25,44 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>spd = 5;
+            <string>healt = 100;
+spd = 5;
 globalvar vspd; 
 vspd = 0;
 globalvar hspd;
 hspd = 0;
 
-globalvar right;
+// globalvar right;
 right = true;
-globalvar left; 
+// globalvar left; 
 left = false;
-globalvar moving;
 moving = false;
 attacking = false;
+hit = false;
+canLoseHP = true;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="1">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>self.canLoseHP = true;
 </string>
           </argument>
         </arguments>
@@ -83,7 +108,27 @@ attacking = false;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(!attacking) {
+            <string>if(self.healt &lt;= 0) {
+    instance_destroy();
+}
+if(instance_exists(self)) {
+if(!hit &amp;&amp; obj_Meemo.x &gt;= obj_g17.x - 90 &amp;&amp; obj_Meemo.x &lt;= obj_g17.x &amp;&amp; obj_g17.sprite_index == spr_g17_att_L) {
+    hit = true;
+} else if(!hit &amp;&amp; obj_Meemo.x &lt;= obj_g17.x + 90 &amp;&amp; obj_Meemo.x &gt;= obj_g17.x &amp;&amp; obj_g17.sprite_index == spr_g17_att_R) {
+    hit = true;
+} else {
+    hit = false;
+}
+
+if(hit) {
+    if(canLoseHP) {
+        canLoseHP = false;
+        self.healt -= 20;
+        alarm[1] = 13;
+    }
+}
+
+if(!attacking) {
 moving = false;
 /**
 if(!place_meeting(x,y-35,obj_solid)) {
@@ -189,6 +234,7 @@ if (place_meeting(x, y+vspd, obj_solid)) {
 y+=vspd;
 hspd = 0;
 vspd = 0;
+}
 }
 </string>
           </argument>
